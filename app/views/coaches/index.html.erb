@@ -1,0 +1,28 @@
+<h1>Listing Coaches</h1>
+
+<table>
+
+<% @coaches.each do |coach| %>
+  <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+	<td>
+		<%= image_tag(coach.image_url, class: 'list_image') %>
+	</td>
+	<td class="list_description">
+		<dl>
+			<dt><%= coach.first_name + " " + coach.last_name %></dt>
+			<dd>Email: <%= coach.email %></dd>
+			<dd>Username: <%= coach.username %></dd>
+		</dl>
+	</td>
+	<td class="list_actions">
+		<%= link_to 'Show', coach %>
+		<%= link_to 'Edit', edit_coach_path(coach) %>
+		<%= link_to 'Destroy', coach, method: :delete, data: { confirm: 'Are you sure?' } %>
+	</td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Coach', new_coach_path %>
