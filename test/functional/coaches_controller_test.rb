@@ -3,6 +3,14 @@ require 'test_helper'
 class CoachesControllerTest < ActionController::TestCase
   setup do
     @coach = coaches(:one)
+    @update = {
+      username: 'jim@world.com',
+      first_name: 'Jim',
+      last_name: 'Parks',
+      hashed_password: 'defaulttest',
+      email: 'jim@world.com',
+      image_url: 'default.png'
+    }
   end
 
   test "should get index" do
@@ -18,7 +26,7 @@ class CoachesControllerTest < ActionController::TestCase
 
   test "should create coach" do
     assert_difference('Coach.count') do
-      post :create, coach: { email: @coach.email, first_name: @coach.first_name, hashed_password: @coach.hashed_password, image_url: @coach.image_url, last_name: @coach.last_name, username: @coach.username }
+      post :create, coach: @update
     end
 
     assert_redirected_to coach_path(assigns(:coach))
@@ -35,7 +43,7 @@ class CoachesControllerTest < ActionController::TestCase
   end
 
   test "should update coach" do
-    put :update, id: @coach, coach: { email: @coach.email, first_name: @coach.first_name, hashed_password: @coach.hashed_password, image_url: @coach.image_url, last_name: @coach.last_name, username: @coach.username }
+    put :update, id: @coach, coach: @update
     assert_redirected_to coach_path(assigns(:coach))
   end
 

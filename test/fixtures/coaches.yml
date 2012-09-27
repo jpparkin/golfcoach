@@ -15,3 +15,11 @@ two:
   last_name: MyString
   email: MyString
   image_url: MyString
+
+coach_jim:
+    username: jim@world.com
+    hashed_password: default
+    first_name: Jim
+    last_name: Parks
+    email: jim@world.com
+    image_url: default.png
