@@ -1,0 +1,29 @@
+<h1>Listing students</h1>
+
+<table>
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Email</th>
+	<th>Coach ID</th>
+    <th>Image url</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @students.each do |student| %>
+  <tr>
+    <td><%= student.first_name %></td>
+    <td><%= student.last_name %></td>
+    <td><%= student.email %></td>
+	<td><%= student.coach_id %></td>
+    <td><%= student.image_url %></td>
+    <td><%= link_to 'Show', coach_student_path(@coach, student) %></td>
+    <td><%= link_to 'Destroy', coach_student_path(@coach, student), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+

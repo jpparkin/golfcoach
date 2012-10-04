@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>First name:</b>
+  <%= @student.first_name %>
+</p>
+
+<p>
+  <b>Last name:</b>
+  <%= @student.last_name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @student.email %>
+</p>
+<p>
+	<b>Coach ID:</b>
+	<%= @student.coach_id %>
+</p>
+<p>
+  <b>Image url:</b>
+  <%= @student.image_url %>
+</p>
+
+<%= link_to "Back", coach_path(@coach) %> | <%= link_to "Edit", edit_coach_student_path(@coach, @student) %> | <%= link_to "Add Lesson", new_coach_student_lesson_path(@coach, @student)%>

@@ -30,6 +30,21 @@
   <%= @coach.image_url %>
 </p>
 
+<p>
+	<h3>Today's Lessons</h3>
+	<% for lesson in @lessons do %>
+		<%= link_to lesson.date.hour.to_s.rjust(2, '0') + ':' + lesson.date.min.to_s.ljust(2, '0') + 
+				' - ' + lesson.student.first_name + ' ' + lesson.student.last_name, 
+				coach_student_lesson_path(@coach, lesson.student, lesson)%><br />
+	<% end %>
+</p>
 
-<%= link_to 'Edit', edit_coach_path(@coach) %> |
-<%= link_to 'Back', coaches_path %>
+<p>
+	<h3>My Students</h3>
+	<% for student in @coach.students do %>
+		<%= link_to student.first_name + " " + student.last_name, coach_student_path(@coach, student) %><br />
+	<% end %>
+	<%= link_to 'Add Student', new_coach_student_path(@coach) %>
+</p>
+
+<%= link_to 'Edit Profile', edit_coach_path(@coach) %>

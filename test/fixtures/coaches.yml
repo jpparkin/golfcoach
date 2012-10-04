@@ -1,22 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  username: MyString
+  id: 1
+  username: MyString1
   hashed_password: MyString
   first_name: MyString
   last_name: MyString
-  email: MyString
+  email: MyString1
   image_url: MyString
 
 two:
-  username: MyString
+  id: 2
+  username: MyString2
   hashed_password: MyString
   first_name: MyString
   last_name: MyString
-  email: MyString
+  email: MyString2
   image_url: MyString
 
 coach_jim:
+    id: 3
     username: jim@world.com
     hashed_password: default
     first_name: Jim

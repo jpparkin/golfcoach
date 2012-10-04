@@ -14,7 +14,17 @@ class CoachesController < ApplicationController
   # GET /coaches/1.json
   def show
     @coach = Coach.find(params[:id])
-
+    @lessons = []
+    view_lessons = nil
+    
+    if(params[:view_lessons])
+      view_lessons = params[:view_lessons].downcase
+    end
+    
+    if(view_lessons == nil || view_lessons == "day")
+      @lessons = @coach.lessons.where(["date >= ? AND date <= ?", Date.today, Date.today + 1]).order(:date)
+    end
+  
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @coach }

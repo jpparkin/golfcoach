@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  first_name: MyString1
+  last_name: MyString
+  email: MyString1
+  image_url: MyString
+  coach_id: 3
+
+two:
+  id: 2
+  first_name: MyString2
+  last_name: MyString
+  email: MyString2
+  image_url: MyString
+  coach_id: 2
+  
+student_paul:
+    id: 3
+    first_name: Paul
+    last_name: Parkin
+    email: paul@world.com
+    image_url: default.png
+    coach_id: 1

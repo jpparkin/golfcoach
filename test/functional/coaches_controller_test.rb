@@ -4,11 +4,11 @@ class CoachesControllerTest < ActionController::TestCase
   setup do
     @coach = coaches(:one)
     @update = {
-      username: 'jim@world.com',
-      first_name: 'Jim',
+      username: 'james@world.com',
+      first_name: 'james',
       last_name: 'Parks',
       hashed_password: 'defaulttest',
-      email: 'jim@world.com',
+      email: 'james@world.com',
       image_url: 'default.png'
     }
   end
@@ -33,13 +33,23 @@ class CoachesControllerTest < ActionController::TestCase
   end
 
   test "should show coach" do
-    get :show, id: @coach
+    get :show, id: @coach 
     assert_response :success
+  end
+  
+  test "should show students of coach" do
+    get :show, id: @coach
+    assert_select 'a[href=?]', "/coaches/" + @coach.id.to_s + "/students/3", :text => 'Paul Parkin'
   end
 
   test "should get edit" do
     get :edit, id: @coach
     assert_response :success
+  end
+  
+  test "back on edit should go to show" do
+    get :edit, id: @coach
+    assert_select 'a[href=?]', "/coaches/1", :text => 'Back'
   end
 
   test "should update coach" do

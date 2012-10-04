@@ -1,5 +1,9 @@
 GolfCoach::Application.routes.draw do
-  resources :coaches
+  resources :coaches do
+    resources :students do
+      resources :lessons
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

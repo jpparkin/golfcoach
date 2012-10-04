@@ -7,4 +7,7 @@ class Coach < ActiveRecord::Base
     with: %r{\.(gif|jpg|png)\Z}i,
     message: 'must be a URL for GIF, JPG or PNG image.'
   }
+  has_many :students
+  accepts_nested_attributes_for :students, :allow_destroy => true
+  has_many :lessons, :through => :students
 end
