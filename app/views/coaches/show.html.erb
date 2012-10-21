@@ -1,50 +1,18 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Username:</b>
-  <%= @coach.username %>
-</p>
-
-<p>
-  <b>Hashed password:</b>
-  <%= @coach.hashed_password %>
-</p>
-
-<p>
-  <b>First name:</b>
-  <%= @coach.first_name %>
-</p>
-
-<p>
-  <b>Last name:</b>
-  <%= @coach.last_name %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%= @coach.email %>
-</p>
-
-<p>
-  <b>Image url:</b>
-  <%= @coach.image_url %>
-</p>
-
-<p>
-	<h3>Today's Lessons</h3>
+<h3>Today's Lessons</h3>
+<% if @lessons.size > 0 %>
+<table class="lessons" summary="Today's Lesson List">
+	<tr class="header">
+		<th>Time</th>
+		<th>Student</th>
+	</tr>
 	<% for lesson in @lessons do %>
-		<%= link_to lesson.date.hour.to_s.rjust(2, '0') + ':' + lesson.date.min.to_s.ljust(2, '0') + 
-				' - ' + lesson.student.first_name + ' ' + lesson.student.last_name, 
-				coach_student_lesson_path(@coach, lesson.student, lesson)%><br />
+	<tr class="<%= cycle('odd', 'even') %>">
+		<td><%= lesson.date.hour.to_s.rjust(2, '0') + ':' + lesson.date.min.to_s.ljust(2, '0') %></td>
+		<td><%= link_to lesson.student.first_name + ' ' + lesson.student.last_name, 
+			coach_student_path(@coach, lesson.student) %></td>
+	</tr>
 	<% end %>
-</p>
-
-<p>
-	<h3>My Students</h3>
-	<% for student in @coach.students do %>
-		<%= link_to student.first_name + " " + student.last_name, coach_student_path(@coach, student) %><br />
-	<% end %>
-	<%= link_to 'Add Student', new_coach_student_path(@coach) %>
-</p>
-
-<%= link_to 'Edit Profile', edit_coach_path(@coach) %>
+</table>
+<% else %>
+<p>No Lessons</p>
+<% end %>

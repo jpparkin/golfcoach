@@ -1,5 +1,8 @@
 class LessonsController < ApplicationController
   before_filter :get_student_and_coach
+  
+  layout 'coach'
+  
   # GET /lessons
   # GET /lessons.json
   def index
@@ -26,6 +29,7 @@ class LessonsController < ApplicationController
   # GET /lessons/new.json
   def new
     @lesson = Lesson.new
+    @time_now = DateTime.now
 
     respond_to do |format|
       format.html # new.html.erb
@@ -46,7 +50,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to @coach, notice: 'Lesson was successfully created.' }
+        format.html { redirect_to coach_student_path(@coach, @student), notice: 'Lesson was successfully created.' }
         format.json { render json: @lesson, status: :created, location: @lesson }
       else
         format.html { render action: "new" }
@@ -59,10 +63,10 @@ class LessonsController < ApplicationController
   # PUT /lessons/1.json
   def update
     @lesson = Lesson.find(params[:id])
-
+    
     respond_to do |format|
       if @lesson.update_attributes(params[:lesson])
-        format.html { redirect_to coach_student_lesson_path(@coach, @student, @lesson), notice: 'Lesson was successfully updated.' }
+        format.html { redirect_to coach_student_path(@coach, @student), notice: 'Lesson was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -81,6 +85,10 @@ class LessonsController < ApplicationController
       format.html { redirect_to coach_path }
       format.json { head :no_content }
     end
+  end
+  
+  def edit_notes
+    @lesson = Lesson.find(params[:id])
   end
   
   private

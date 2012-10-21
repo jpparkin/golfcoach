@@ -4,7 +4,7 @@ class LessonsControllerTest < ActionController::TestCase
   setup do
     @lesson = lessons(:one)
     @coach = coaches(:one)
-    @student = coaches(:one)
+    @student = students(:student_paul)
   end
 
   test "should get index" do

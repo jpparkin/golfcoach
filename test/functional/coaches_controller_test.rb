@@ -1,8 +1,15 @@
 require 'test_helper'
+require 'delorean'
 
 class CoachesControllerTest < ActionController::TestCase
   setup do
     @coach = coaches(:one)
+    @empty_coach = coaches(:two)
+    @student = students(:student_paul)
+    @coach.students << @student
+    @student.lessons << lessons(:one)
+    @student.lessons << lessons(:two)
+    @student.lessons << lessons(:three)
     @update = {
       username: 'james@world.com',
       first_name: 'james',
@@ -37,9 +44,19 @@ class CoachesControllerTest < ActionController::TestCase
     assert_response :success
   end
   
-  test "should show students of coach" do
+  test "should show lessons for today of coach" do
     get :show, id: @coach
-    assert_select 'a[href=?]', "/coaches/" + @coach.id.to_s + "/students/3", :text => 'Paul Parkin'
+    assert_equal 2, assigns(:lessons).size, "The wrong number of lessons are displayed"
+  end
+  
+  test "display No Lessons if today has no lessons" do
+    get :show, id: @empty_coach
+    assert_select "h3 + p", :text => 'No Lessons'
+  end
+    
+  test "should show lessons for today when view_lessons=day" do
+    get :show, id: @coach, view_lessons: "day"
+    assert_equal 2, assigns(:lessons).size
   end
 
   test "should get edit" do

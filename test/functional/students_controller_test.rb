@@ -14,6 +14,7 @@ class StudentsControllerTest < ActionController::TestCase
     get :index, :coach_id => @student.coach_id
     assert_response :success
     assert_not_nil assigns(:students)
+    assert_equal 1, assigns(:students).size
   end
 
   test "should get new" do

@@ -1,9 +1,12 @@
 class CoachesController < ApplicationController
+  
+  layout :coach_layout, :except => [:new]
+  
   # GET /coaches
   # GET /coaches.json
   def index
     @coaches = Coach.all
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @coaches }
@@ -14,15 +17,13 @@ class CoachesController < ApplicationController
   # GET /coaches/1.json
   def show
     @coach = Coach.find(params[:id])
+    @coach_name = @coach.first_name + " " + @coach.last_name
     @lessons = []
-    view_lessons = nil
-    
-    if(params[:view_lessons])
-      view_lessons = params[:view_lessons].downcase
-    end
+    @time_now = DateTime.now
+    view_lessons = (params[:view_lessons] && params[:view_lessons].downcase) || nil
     
     if(view_lessons == nil || view_lessons == "day")
-      @lessons = @coach.lessons.where(["date >= ? AND date <= ?", Date.today, Date.today + 1]).order(:date)
+      @lessons = @coach.lessons.where(["date >= ? AND date <= ?", @time_now.to_date, @time_now.to_date + 1]).order(:date)
     end
   
     respond_to do |format|
@@ -90,4 +91,18 @@ class CoachesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def new_lesson
+    @coach = Coach.find(params[:id])
+    
+    respond_to do |format|
+      format.html 
+      format.json { render json: @coach }
+    end
+  end
+  
+  private
+    def coach_layout
+      @coach.nil? ? "application" : "coach"
+    end
 end

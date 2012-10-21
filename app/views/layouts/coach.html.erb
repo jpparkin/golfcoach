@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><%= !@coach.nil? ? (@coach.first_name + " " + @coach.last_name + "'s ") : "" %>Golf Coaching Diary</title>
+  <%= stylesheet_link_tag    "bootstrap", :media => "all" %>
+  <%= stylesheet_link_tag    "bootstrap-responsive", :media => "all" %>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "bootstrap" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class='<%= controller.controller_name %>'>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span2">
+				<p>
+					<%= image_tag(@coach.image_url, class: 'profile_image') %>
+				</p>
+				<p>
+					<%= link_to @coach.first_name + " " + @coach.last_name, coach_path(@coach) %>
+				</p>
+				<p>
+					<ul>
+						<li><%= link_to 'View Lessons', coach_path(@coach) %></li>
+						<li><%= link_to 'New Lesson', new_lesson_coach_path(@coach) %></li>
+						<li><%= link_to 'View Students', coach_students_path(@coach) %></li>
+						<li><%= link_to 'Add Student', new_coach_student_path(@coach) %></li>
+						<li><%= link_to 'Edit Profile', edit_coach_path(@coach) %></li>
+					</ul>
+				</p>
+			</div>
+			<div class="span10">
+				<p id="notice"><%= notice %></p>
+				<%= yield %>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,7 +1,15 @@
 GolfCoach::Application.routes.draw do
   resources :coaches do
     resources :students do
-      resources :lessons
+      resources :lessons do
+        member do
+          get 'edit_notes'
+        end
+      end
+    end
+    
+    member do
+      get 'new_lesson'
     end
   end
 

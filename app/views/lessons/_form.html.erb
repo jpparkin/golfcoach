@@ -12,13 +12,12 @@
   <% end %>
 
   <div class="field">
-  	<%= f.label :date %><br />
-	<%= f.datetime_select :date, :order => [:day, :month, :year], :minute_step => 5, :include_seconds => false %>
+  	<%= f.label :date %>
+	<%= f.date_select :date, :order => [:day, :month, :year], :default => @time_now %><br />
+	<%= f.label "Time" %>
+	<%= f.time_select :date, :ignore_date => true, :minute_step => 5, :include_seconds => false, :default => @time_now %>
   </div>
-  <div class="field">
-    <%= f.label :notes %><br />
-    <%= f.text_area :notes %>
-  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

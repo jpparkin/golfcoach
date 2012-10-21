@@ -1,26 +1,37 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <b>First name:</b>
-  <%= @student.first_name %>
+	<%= image_tag(@student.image_url, class: 'profile_image') %>
 </p>
 
 <p>
-  <b>Last name:</b>
-  <%= @student.last_name %>
+  <%= @student.first_name %> <%= @student.last_name %>
 </p>
 
 <p>
-  <b>Email:</b>
-  <%= @student.email %>
+  <%= mail_to @student.email %>
 </p>
-<p>
-	<b>Coach ID:</b>
-	<%= @student.coach_id %>
-</p>
-<p>
-  <b>Image url:</b>
-  <%= @student.image_url %>
-</p>
+
+<h3>Upcoming Lessons</h3>
+<% if @future_lessons.size > 0 %>
+<ul>
+	<% for lesson in @future_lessons do %>
+	<li class="<%= cycle('odd', 'even') %>"><%= lesson.date.strftime("%A, %B %d, %Y at %I:%M%p") %></li>
+	<% end %>
+</ul>
+<% else %>
+<p>No Lessons</p>
+<% end %>
+
+<h3>Previous Lessons</h3>
+<% if @previous_lessons.size > 0 %>
+<div class="<%= cycle('odd', 'even') %>">
+	<% for lesson in @previous_lessons do %>
+	<p><%= lesson.date.strftime("%A, %B %d, %Y at %I:%M%p") %></p>
+	<p><%= lesson.notes %></p>
+	<p><%= link_to "Edit Lesson Notes", edit_notes_coach_student_lesson_path(@coach, @student, lesson) %></p>
+	<% end %>
+</div>
+<% else %>
+<p>No Lessons</p>
+<% end %>
 
 <%= link_to "Back", coach_path(@coach) %> | <%= link_to "Edit", edit_coach_student_path(@coach, @student) %> | <%= link_to "Add Lesson", new_coach_student_lesson_path(@coach, @student)%>

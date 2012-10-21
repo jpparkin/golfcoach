@@ -1,11 +1,20 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+# <%= Time.parse('22:00 14 Aug 2009').to_s(:db) %>
 
 one:
-  notes: MyString
+  date: <%= DateTime.now.to_s(:db) %>
+  notes: First lessons notes
   coach_id: 1
-  student_id: 1
+  student_id: 3
 
 two:
-  notes: MyString
+  date: <%= DateTime.now.to_s(:db) %>
+  notes: Second lessons notes
   coach_id: 1
-  student_id: 1
+  student_id: 3
+
+three:
+  date: <%= (DateTime.now + 1).to_s(:db) %>
+  notes: Third lessons notes
+  coach_id: 1
+  student_id: 3

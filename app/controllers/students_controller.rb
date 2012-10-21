@@ -1,9 +1,12 @@
 class StudentsController < ApplicationController
   before_filter :get_coach
+  
+  layout 'coach'
+  
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
+    @students = Coach.find(params[:coach_id]).students
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,6 +18,10 @@ class StudentsController < ApplicationController
   # GET /students/1.json
   def show
     @student = Student.find(params[:id])
+    @time_now = DateTime.now
+   
+    @future_lessons = @student.lessons.where(["date >= ?", @time_now]).order(:date)
+    @previous_lessons = @student.lessons.where(["date <= ?", @time_now]).order(:date)
 
     respond_to do |format|
       format.html # show.html.erb
